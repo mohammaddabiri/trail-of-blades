@@ -92,13 +92,13 @@ public class AlienSwarmCamera : IsometricCamera
 	public void SetDesiredFOV( float fov, float time )
 	{	
 		m_previousDesiredCameraFOV = POV.FOV;
-		m_desiredCameraFOV = fov;
+		FOV = fov;
 		m_cameraFOVTimer = new TimedBlendFactor( new BlendParams( time ) );
 	}
 	
 	private float CalcFOV()
 	{		
-		return Mathf.Lerp( m_previousDesiredCameraFOV, m_desiredCameraFOV, m_cameraFOVTimer.BlendWeight );
+		return Mathf.Lerp( m_previousDesiredCameraFOV, FOV, m_cameraFOVTimer.BlendWeight );
 	}
 	
 	protected override POV CalculatePOV ()
@@ -125,6 +125,6 @@ public class AlienSwarmCamera : IsometricCamera
 	private Vector3 m_focalPoint; 
 	
 	private Engine.TimedBlendFactor m_cameraFOVTimer = new Engine.TimedBlendFactor ();
-	private float m_desiredCameraFOV = 55.0f;
+	//private float m_desiredCameraFOV = 55.0f;
 	private float m_previousDesiredCameraFOV = 55.0f;
 }
