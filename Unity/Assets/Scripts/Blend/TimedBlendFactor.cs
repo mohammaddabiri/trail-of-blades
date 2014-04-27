@@ -121,7 +121,8 @@ namespace Engine
 					break;
 				}
 			}
-			
+
+			Debug.Log (BlendWeight);
 			BlendWeight = blendPct;
 		}
 		

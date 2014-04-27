@@ -40,7 +40,12 @@ namespace Engine
 				m_previousBlendWeight = m_actualBlend;		
 			}
 		}
-		
+
+		public void Update()
+		{
+			DesiredBlendContribution.Update (Time.deltaTime);
+		}
+
 		public BlendStackEntry( ObjectType contents )
 		{
 			m_actualObject = contents;

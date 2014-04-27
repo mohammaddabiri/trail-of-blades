@@ -2,13 +2,17 @@ using UnityEngine;
 using System.Collections;
 using Engine;
 
+[ExecuteInEditMode]
 public class AlienSwarmCamera : IsometricCamera
 {
 	public Vector2 MaxDistanceToTarget = new Vector2( 5.0f, 5.0f );
 	public float MaxFriction = 0.2f;
 	public float MinFriction = 0.2f;
 	public float MaxMouseDistance = 0.707f;
-	
+
+	[SerializeField]
+	private Camera m_viewCam;
+
 	public Vector3 FocalPoint
 	{
 		get { return m_focalPoint; }
@@ -16,7 +20,7 @@ public class AlienSwarmCamera : IsometricCamera
 	
 	protected Vector3 IdealFocalPoint ()
 	{
-		Vector3 mouseVS = camera.ScreenToViewportPoint( Input.mousePosition );
+		Vector3 mouseVS = m_viewCam.ScreenToViewportPoint( Input.mousePosition );
 		mouseVS.x = Mathf.Clamp01( mouseVS.x );
 		mouseVS.y = Mathf.Clamp01( mouseVS.y );
 		
@@ -114,7 +118,7 @@ public class AlienSwarmCamera : IsometricCamera
 		base.OnUpdate ();
 		 
 		m_focalPoint = IdealFocalPoint();
-		m_cameraFOVTimer.Update( Time.deltaTime );
+//		m_cameraFOVTimer.Update( Time.deltaTime );
 		
 #if UNITY_EDITOR
 		DrawDebugX( m_focalPoint, Color.red, 2.0f );

@@ -10,6 +10,15 @@ namespace Engine
 			get{ return m_blendWeight; }
 			set{ m_blendWeight = value; }
 		}
+
+		#region IBlendFactor implementation
+
+		public void Update (float _deltaTime)
+		{
+
+		}
+
+		#endregion
 		
 		public StaticBlendFactor( float _weight )
 		{

@@ -44,6 +44,7 @@ namespace Engine
 		void Start()
 		{
 			// Do nothing.
+			InitCamera ();
 		}
 		
 		// Use this for initialization
