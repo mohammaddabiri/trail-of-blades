@@ -31,8 +31,6 @@ public class TestCameraTransition : MonoBehaviour {
 
 			CameraManager.Transition (clonedCamera, new TimedBlendFactor(new BlendParams(TransitionDuration, BlendFunctions.EaseInOut)));
 		}
-						//CameraManager.Transition (Camera2, new TimedBlendFactor(new BlendParams(5.0f, BlendFunctions.EaseInOut)));
-						//CameraManager.Transition (Camera2, new StaticBlendFactor (0.5f));
 		
 		m_lastSelectedCamIndex = m_selectedCamIndex;
 	}

@@ -28,7 +28,23 @@ namespace Engine
 		}
 
 		#endregion
-		
+				
+		public ObjectType this[int index]
+		{
+			get
+			{
+				return m_blendNodes[index].ActualObject;
+			}
+		}
+
+		public int Count
+		{
+			get
+			{
+				return this.m_blendNodes.Count;
+			}
+		}
+
 		protected void OnStackEntryExpired( BlendStackEntry<ObjectType> entry )
 		{
 			entry.Expired -= OnStackEntryExpired;
@@ -60,6 +76,8 @@ namespace Engine
 		{			
 			float remainingBlend = 1.0f;
 					 	
+			List<BlendStackEntry<ObjectType>> toRemove = new List<BlendStackEntry<ObjectType>> ();
+
 			for( int index = 0; index < m_blendNodes.Count; ++index )
 			{			
 				if(m_blendNodes.Count > 1)
@@ -76,7 +94,15 @@ namespace Engine
 				remainingBlend -= actualBlendContribution;
 						
 				entry.ActualBlendContribution = actualBlendContribution;
+//
+//				if(actualBlendContribution == 0.0f)
+//					toRemove.Add(entry);
 			}			
+//
+//			for(int i = 0; i < toRemove.Count; ++i)
+//			{
+//				Remove(toRemove[i]);
+//			}
 		}
 		
 		public bool Contains( ObjectType entryObj )

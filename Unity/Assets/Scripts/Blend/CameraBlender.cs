@@ -13,12 +13,6 @@ namespace Engine
 			public float Weight;
 		}
 
-//		// Use this for initialization
-//		void Start () {
-//		
-//		}
-
-
 		public POV POV {
 			get;
 			private set;
@@ -31,7 +25,7 @@ namespace Engine
 			newChild.Camera = _camera;
 			newChild.Weight = _blendWeight;
 
-			Children.Add( newChild );
+			Children.Add(newChild);
 		}
 		
 		static POV BlendPOVs( POV _a, POV _b, float _alpha )
@@ -47,69 +41,27 @@ namespace Engine
 		
 		public void Evaluate()
 		{
-			POV finalPOV;
-			POV localPOV;
-			Entry currentChild;
-			int childIndex;
-			Entry lastChild;
-			
 			if( Children.Count != 0 )
 			{
-				lastChild = Children[Children.Count - 1];
+				var lastChild = Children[Children.Count - 1];
 				
-				localPOV = lastChild.Camera.POV;
-				finalPOV = localPOV;
+				var localPOV = lastChild.Camera.POV;
+				var finalPOV = localPOV;
 				
 				//( finalPOV * Children[0].BlendWeight ) + ( 1 - Children[0].BlendWeight ) * otherChildren.POV;
-				for( childIndex = Children.Count - 2; childIndex >= 0; --childIndex )
+				for( int childIndex = Children.Count - 2; childIndex >= 0; --childIndex )
 				{
-					currentChild = Children[childIndex];
+					var currentChild = Children[childIndex];
 					localPOV = currentChild.Camera.POV;
 					
 					finalPOV = BlendPOVs( finalPOV, localPOV, currentChild.Weight );
 				}
-				
 				POV = finalPOV;
 			}
 		}
 
-//			void Update ()
-//			{			
-//				m_blendedCameras.Update ();
-//				
-//			foreach(var activeCamera in m_activeCameras)
-//			{
-//				float contribution = m_blendedCameras.GetContribution(activeCamera);
-//			}
-////				if( ActiveCamera != null )
-////				{
-////					ActiveCamera.UpdateCamera();
-////					ActiveCamera.UpdateView();
-////					
-////					POV finalPOV = ActiveCamera.POV;
-////					m_actualCamera.fov = finalPOV.FOV;
-////					m_actualCamera.transform.localPosition = finalPOV.Position;
-////					m_actualCamera.transform.localRotation = finalPOV.Orientation;
-////					
-////					if( ShakeTM != null )
-////					{
-////						m_actualCamera.transform.localPosition += ShakeTM.localPosition;
-////						m_actualCamera.transform.localRotation *= ShakeTM.localRotation;
-////					}
-////				}
-////			}
-//
-//		public void TransitionTo(CameraBase camera, IBlendFactor transitionBlend)
-//		{
-//			m_activeCameras.Add (camera);
-//			m_blendedCameras.Push (camera, transitionBlend);
-//		}
-
 		[SerializeField]
 		private List<CameraBase> m_activeCameras = new List<CameraBase> ();
-
-		//private POV m_pov = new POV();
-
 		private List<Entry> Children = new List<Entry>();
 	}
 }
